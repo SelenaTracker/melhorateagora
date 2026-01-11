@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Música - Selena Gomez Stream Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sistema de Login/Logout -->
+    <div class="user-bar">
+        <div class="user-info" id="userInfo">
+            <span id="userName">Visitante</span>
+            <span id="userPoints">0 pontos</span>
+        </div>
+        <button id="loginBtn" class="btn-login"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+        <button id="logoutBtn" class="btn-logout" style="display: none;"><i class="fas fa-sign-out-alt"></i> Sair</button>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-music"></i>
+            <h1>Buscar Música</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="busca.html" class="active"><i class="fas fa-search"></i> Buscar Música</a></li>
+                <li><a href="calculadora.html"><i class="fas fa-calculator"></i> Calculadora</a></li>
+                <li><a href="votacao.html"><i class="fas fa-vote-yea"></i> Votação</a></li>
+                <li><a href="admin.html"><i class="fas fa-cog"></i> Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Barra de Busca -->
+        <section class="card">
+            <h2><i class="fas fa-search"></i> Buscar Música na Lista</h2>
+            <div class="search-container">
+                <div class="search-input-group">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" 
+                           id="searchInput" 
+                           placeholder="Digite o nome da música, álbum ou artista..."
+                           autocomplete="off">
+                    <button class="btn-small" id="clearSearch">
+                        <i class="fas fa-times"></i> Limpar
+                    </button>
+                </div>
+                
+                <div class="search-filters">
+                    <div class="filter-group">
+                        <label for="filterArtist"><i class="fas fa-user"></i> Artista:</label>
+                        <select id="filterArtist">
+                            <option value="all">Todos os Artistas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filterAlbum"><i class="fas fa-compact-disc"></i> Álbum:</label>
+                        <select id="filterAlbum">
+                            <option value="all">Todos os Álbuns</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="sortSelect"><i class="fas fa-sort"></i> Ordenar por:</label>
+                        <select id="sortSelect">
+                            <option value="name-asc">Nome (A-Z)</option>
+                            <option value="name-desc">Nome (Z-A)</option>
+                            <option value="streams-desc">Streams Totais (maior)</option>
+                            <option value="streams-asc">Streams Totais (menor)</option>
+                            <option value="daily-desc">Streams Diários (maior)</option>
+                            <option value="daily-asc">Streams Diários (menor)</option>
+                            <option value="goal-desc">Meta (maior)</option>
+                            <option value="goal-asc">Meta (menor)</option>
+                            <option value="progress-desc">Progresso (maior)</option>
+                            <option value="progress-asc">Progresso (menor)</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-secondary" id="clearFilters">
+                        <i class="fas fa-filter-circle-xmark"></i> Limpar Filtros
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resultados -->
+        <section class="card">
+            <div class="results-header">
+                <h2><i class="fas fa-list"></i> Resultados da Busca</h2>
+                <div class="results-info">
+                    <span id="totalResults">Carregando músicas...</span>
+                    <div class="loading-indicator" id="loadingIndicator">
+                        <div class="loading-spinner"></div>
+                        <span>Carregando...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="music-table" id="musicTable">
+                    <thead>
+                        <tr>
+                            <th width="35%">Música</th>
+                            <th width="12%" class="text-center">Streams Totais</th>
+                            <th width="12%" class="text-center">Streams Diários</th>
+                            <th width="12%" class="text-center">Meta</th>
+                            <th width="15%">Progresso</th>
+                            <th width="10%" class="text-center">Dias Restantes</th>
+                            <th width="4%" class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="musicTableBody">
+                        <!-- Dados carregados via JavaScript -->
+                    </tbody>
+                </table>
+                
+                <div class="no-results-message" id="noResultsMessage" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>Nenhuma música encontrada</h3>
+                    <p>Tente usar termos diferentes ou limpe os filtros</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estatísticas Rápidas -->
+        <section class="card">
+            <h2><i class="fas fa-chart-pie"></i> Estatísticas da Busca</h2>
+            <div class="search-stats" id="searchStats">
+                <!-- Gerado dinamicamente -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Buscar Música</h4>
+                <p>Encontre qualquer música da Selena Gomez</p>
+            </div>
+            <div class="footer-section">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="termos.html"><i class="fas fa-file-contract"></i> Termos</a></li>
+                    <li><a href="privacidade.html"><i class="fas fa-shield-alt"></i> Privacidade</a></li>
+                    <li><a href="contato.html"><i class="fas fa-envelope"></i> Contato</a></li>
+                    <li><a href="calculadora.html"><i class="fas fa-calculator"></i> Calculadora</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Conectar</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-spotify"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Selena Gomez Stream Tracker</p>
+        </div>
+    </footer>
+
+    <!-- Modais -->
+    <div id="loginModal" class="modal">
+        <!-- Mesmo modal de login da home -->
+    </div>
+
+    <div id="registerModal" class="modal">
+        <!-- Mesmo modal de registro da home -->
+    </div>
+
+    <div id="songDetailsModal" class="modal">
+        <!-- Gerado dinamicamente -->
+    </div>
+
+    <div id="simulationModal" class="modal">
+        <!-- Mesmo modal de simulação da home -->
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/busca.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
