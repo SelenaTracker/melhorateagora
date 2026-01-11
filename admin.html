@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Selena Gomez Stream Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sistema de Login/Logout -->
+    <div class="user-bar">
+        <div class="user-info" id="userInfo">
+            <span id="userName">Visitante</span>
+            <span id="userPoints">0 pontos</span>
+        </div>
+        <button id="loginBtn" class="btn-login"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+        <button id="logoutBtn" class="btn-logout" style="display: none;"><i class="fas fa-sign-out-alt"></i> Sair</button>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-cog"></i>
+            <h1>Painel Administrativo</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="busca.html"><i class="fas fa-search"></i> Buscar Música</a></li>
+                <li><a href="calculadora.html"><i class="fas fa-calculator"></i> Calculadora</a></li>
+                <li><a href="votacao.html"><i class="fas fa-vote-yea"></i> Votação</a></li>
+                <li><a href="admin.html" class="active"><i class="fas fa-cog"></i> Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Dashboard Admin -->
+        <section class="card admin-dashboard">
+            <h2><i class="fas fa-tachometer-alt"></i> Dashboard Administrativo</h2>
+            <div class="admin-stats-grid" id="adminStats">
+                <!-- Estatísticas serão carregadas via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Atualização de Streams -->
+        <section class="card">
+            <h2><i class="fas fa-sync-alt"></i> Atualização de Streams</h2>
+            <div class="update-controls">
+                <div class="update-mode">
+                    <label for="updateMode">Modo de Atualização:</label>
+                    <select id="updateMode">
+                        <option value="daily">Streams Diários</option>
+                        <option value="total">Streams Totais</option>
+                    </select>
+                </div>
+                <div class="update-date">
+                    <label for="updateDate">Data de Referência:</label>
+                    <input type="date" id="updateDate" value="">
+                </div>
+                <button class="btn-primary" id="updateAllBtn">
+                    <i class="fas fa-bolt"></i> Atualizar Todas
+                </button>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Lista de Músicas para Atualizar</h3>
+                    <div class="table-actions">
+                        <button class="btn-small" id="selectAllBtn">
+                            <i class="fas fa-check-square"></i> Selecionar Todas
+                        </button>
+                        <button class="btn-small" id="deselectAllBtn">
+                            <i class="fas fa-square"></i> Desmarcar Todas
+                        </button>
+                    </div>
+                </div>
+                
+                <table class="admin-table" id="adminMusicTable">
+                    <thead>
+                        <tr>
+                            <th width="5%">
+                                <input type="checkbox" id="selectAllCheckbox">
+                            </th>
+                            <th width="30%">Música</th>
+                            <th width="15%">Álbum</th>
+                            <th width="15%">Artista</th>
+                            <th width="15%">Streams Atuais</th>
+                            <th width="10%">Diário Atual</th>
+                            <th width="10%">Novo Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminMusicTableBody">
+                        <!-- Dados serão carregados via JavaScript -->
+                    </tbody>
+                </table>
+                
+                <div class="table-footer">
+                    <div class="selected-count">
+                        <span id="selectedCount">0</span> músicas selecionadas
+                    </div>
+                    <div class="update-actions">
+                        <button class="btn-secondary" id="previewUpdateBtn">
+                            <i class="fas fa-eye"></i> Pré-visualizar
+                        </button>
+                        <button class="btn-primary" id="applyUpdateBtn">
+                            <i class="fas fa-check"></i> Aplicar Atualizações
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adicionar Nova Música -->
+        <section class="card">
+            <h2><i class="fas fa-plus-circle"></i> Adicionar Nova Música</h2>
+            <div class="add-music-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="newSongName"><i class="fas fa-music"></i> Nome da Música:</label>
+                        <input type="text" id="newSongName" placeholder="Ex: Love You Like A Love Song">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newSongAlbum"><i class="fas fa-compact-disc"></i> Álbum:</label>
+                        <select id="newSongAlbum">
+                            <option value="">Selecione um álbum</option>
+                            <option value="Revival">Revival</option>
+                            <option value="Rare">Rare</option>
+                            <option value="Stars Dance">Stars Dance</option>
+                            <option value="Revelación">Revelación</option>
+                            <option value="When The Sun Goes Down">When The Sun Goes Down</option>
+                            <option value="A Year Without Rain">A Year Without Rain</option>
+                            <option value="Kiss & Tell">Kiss & Tell</option>
+                            <option value="For You">For You</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                        <input type="text" id="newSongAlbumCustom" placeholder="Ou digite o nome do álbum" style="display: none; margin-top: 5px;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newSongArtist"><i class="fas fa-user"></i> Artista:</label>
+                        <select id="newSongArtist">
+                            <option value="Selena Gomez">Selena Gomez</option>
+                            <option value="Selena Gomez & The Scene">Selena Gomez & The Scene</option>
+                            <option value="Colaboração">Colaboração</option>
+                        </select>
+                        <input type="text" id="newSongArtistCustom" placeholder="Digite o nome do artista" style="display: none; margin-top: 5px;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newSongStreams"><i class="fas fa-chart-line"></i> Streams Totais:</label>
+                        <input type="text" id="newSongStreams" placeholder="Ex: 598.745.231">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newSongDaily"><i class="fas fa-calendar-day"></i> Streams Diários:</label>
+                        <input type="text" id="newSongDaily" placeholder="Ex: 125.478">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newSongGoal"><i class="fas fa-bullseye"></i> Meta Inicial:</label>
+                        <input type="text" id="newSongGoal" placeholder="Ex: 600.000.000">
+                        <div class="goal-suggestions">
+                            <small>Sugestão baseada em streams diários: <span id="goalSuggestion">0</span></small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn-secondary" id="clearFormBtn">
+                        <i class="fas fa-broom"></i> Limpar Formulário
+                    </button>
+                    <button class="btn-primary" id="addSongBtn">
+                        <i class="fas fa-plus"></i> Adicionar Música
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gestão de Votação -->
+        <section class="card">
+            <h2><i class="fas fa-vote-yea"></i> Gestão de Votação</h2>
+            <div class="voting-management">
+                <div class="voting-controls">
+                    <div class="control-group">
+                        <h4><i class="fas fa-cog"></i> Configurações</h4>
+                        <div class="control-item">
+                            <label for="votingDuration">Duração do Ciclo:</label>
+                            <select id="votingDuration">
+                                <option value="48">48 horas</option>
+                                <option value="24">24 horas</option>
+                                <option value="72">72 horas</option>
+                            </select>
+                        </div>
+                        <div class="control-item">
+                            <label for="resetTime">Horário do Reset:</label>
+                            <input type="time" id="resetTime" value="21:00">
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <h4><i class="fas fa-music"></i> Músicas para Votação</h4>
+                        <div class="voting-songs" id="votingSongsList">
+                            <!-- Lista de músicas para votação -->
+                        </div>
+                        <button class="btn-small" id="addVotingSongBtn">
+                            <i class="fas fa-plus"></i> Adicionar Música
+                        </button>
+                    </div>
+                    
+                    <div class="control-group">
+                        <h4><i class="fas fa-tools"></i> Ações</h4>
+                        <div class="action-buttons">
+                            <button class="btn-secondary" id="resetVotingBtn">
+                                <i class="fas fa-redo"></i> Resetar Votação Atual
+                            </button>
+                            <button class="btn-secondary" id="forceUpdateFocusBtn">
+                                <i class="fas fa-crown"></i> Forçar Atualização do Foco
+                            </button>
+                            <button class="btn-primary" id="saveVotingSettingsBtn">
+                                <i class="fas fa-save"></i> Salvar Configurações
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sistema de Metas -->
+        <section class="card">
+            <h2><i class="fas fa-bullseye"></i> Sistema de Metas</h2>
+            <div class="goals-management">
+                <div class="goals-controls">
+                    <button class="btn-primary" id="checkGoalsBtn">
+                        <i class="fas fa-sync-alt"></i> Verificar e Atualizar Metas
+                    </button>
+                    <button class="btn-secondary" id="viewGoalHistoryBtn">
+                        <i class="fas fa-history"></i> Ver Histórico
+                    </button>
+                    <button class="btn-secondary" id="exportGoalsBtn">
+                        <i class="fas fa-download"></i> Exportar Metas
+                    </button>
+                </div>
+                
+                <div class="goals-preview" id="goalsPreview">
+                    <!-- Pré-visualização de metas será carregada aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Backup e Restauração -->
+        <section class="card">
+            <h2><i class="fas fa-database"></i> Backup e Restauração</h2>
+            <div class="backup-management">
+                <div class="backup-options">
+                    <div class="backup-option">
+                        <h4><i class="fas fa-save"></i> Backup Completo</h4>
+                        <p>Salve todos os dados do sistema em um arquivo JSON</p>
+                        <button class="btn-primary" id="createBackupBtn">
+                            <i class="fas fa-download"></i> Criar Backup
+                        </button>
+                    </div>
+                    
+                    <div class="backup-option">
+                        <h4><i class="fas fa-upload"></i> Restaurar Backup</h4>
+                        <p>Restaurar dados a partir de um arquivo JSON</p>
+                        <input type="file" id="restoreFile" accept=".json" style="display: none;">
+                        <button class="btn-secondary" id="chooseRestoreFileBtn">
+                            <i class="fas fa-folder-open"></i> Escolher Arquivo
+                        </button>
+                        <button class="btn-primary" id="restoreBackupBtn" disabled>
+                            <i class="fas fa-upload"></i> Restaurar
+                        </button>
+                    </div>
+                    
+                    <div class="backup-option">
+                        <h4><i class="fas fa-trash-alt"></i> Limpeza</h4>
+                        <p>Limpar histórico e dados antigos</p>
+                        <button class="btn-secondary" id="cleanOldDataBtn">
+                            <i class="fas fa-broom"></i> Limpar Dados Antigos
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="backup-info">
+                    <h4><i class="fas fa-info-circle"></i> Informações do Sistema</h4>
+                    <div class="system-info" id="systemInfo">
+                        <!-- Informações serão carregadas via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Painel Administrativo</h4>
+                <p>Área restrita para gerenciamento do sistema</p>
+                <div class="footer-stats">
+                    <p><i class="fas fa-shield-alt"></i> Acesso Administrativo</p>
+                    <p><i class="fas fa-clock"></i> Última atualização: <span id="lastUpdateTime">--:--</span></p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Ferramentas</h4>
+                <ul>
+                    <li><a href="#" id="quickStatsBtn"><i class="fas fa-chart-bar"></i> Estatísticas Rápidas</a></li>
+                    <li><a href="#" id="exportDataBtn"><i class="fas fa-file-export"></i> Exportar Dados</a></li>
+                    <li><a href="#" id="systemLogsBtn"><i class="fas fa-clipboard-list"></i> Logs do Sistema</a></li>
+                    <li><a href="#" id="userManagementBtn"><i class="fas fa-users-cog"></i> Gerenciar Usuários</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Segurança</h4>
+                <div class="security-info">
+                    <p><i class="fas fa-lock"></i> Sessão Administrativa</p>
+                    <p><i class="fas fa-history"></i> Registro de Atividades</p>
+                    <button class="btn-small" id="endSessionBtn">
+                        <i class="fas fa-sign-out-alt"></i> Encerrar Sessão
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Selena Gomez Stream Tracker - Painel Administrativo</p>
+            <p class="disclaimer">Acesso restrito a administradores autorizados</p>
+        </div>
+    </footer>
+
+    <!-- Modais Administrativos -->
+    <div id="previewModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-eye"></i> Pré-visualização de Atualizações</h3>
+            <div class="preview-content" id="previewContent">
+                <!-- Conteúdo da pré-visualização -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="closePreviewBtn">Fechar</button>
+                <button class="btn-primary" id="confirmPreviewBtn">Confirmar Atualizações</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="goalHistoryModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-history"></i> Histórico de Atualizações de Metas</h3>
+            <div class="history-content" id="goalHistoryContent">
+                <!-- Histórico de metas -->
+            </div>
+        </div>
+    </div>
+
+    <div id="systemLogsModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-clipboard-list"></i> Logs do Sistema</h3>
+            <div class="logs-content" id="systemLogsContent">
+                <!-- Logs do sistema -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Login (especial para admin) -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-shield-alt"></i> Login Administrativo</h3>
+            <div class="admin-login-form">
+                <div class="form-group">
+                    <label><i class="fas fa-user-shield"></i> Usuário Admin:</label>
+                    <input type="text" id="adminUsername" placeholder="Nome de usuário">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Senha:</label>
+                    <input type="password" id="adminPassword" placeholder="Senha administrativa">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-key"></i> Código de Acesso:</label>
+                    <input type="text" id="adminAccessCode" placeholder="Código especial (opcional)">
+                </div>
+                <button class="btn-primary" id="submitAdminLogin">
+                    <i class="fas fa-sign-in-alt"></i> Acessar Painel
+                </button>
+                <p class="login-note">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Apenas administradores autorizados
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="confirmationTitle">Confirmar Ação</h3>
+            <div class="confirmation-content" id="confirmationContent">
+                <!-- Conteúdo dinâmico -->
+            </div>
+            <div class="confirmation-actions">
+                <button class="btn-secondary" id="cancelActionBtn">Cancelar</button>
+                <button class="btn-primary" id="confirmActionBtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
