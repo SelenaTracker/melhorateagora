@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Metas - Selena Gomez Stream Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sistema de Login/Logout -->
+    <div class="user-bar">
+        <div class="user-info" id="userInfo">
+            <span id="userName">Visitante</span>
+            <span id="userPoints">0 pontos</span>
+        </div>
+        <button id="loginBtn" class="btn-login"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+        <button id="logoutBtn" class="btn-logout" style="display: none;"><i class="fas fa-sign-out-alt"></i> Sair</button>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-calculator"></i>
+            <h1>Calculadora de Metas</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="busca.html"><i class="fas fa-search"></i> Buscar Música</a></li>
+                <li><a href="calculadora.html" class="active"><i class="fas fa-calculator"></i> Calculadora</a></li>
+                <li><a href="votacao.html"><i class="fas fa-vote-yea"></i> Votação</a></li>
+                <li><a href="admin.html"><i class="fas fa-cog"></i> Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Calculadora Principal -->
+        <section class="card">
+            <h2><i class="fas fa-calculator"></i> Calculadora de Dias para Meta</h2>
+            <p class="subtitle">Calcule quantos dias faltam para alcançar uma meta de streams</p>
+            
+            <div class="calculator-grid">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="currentStreams">
+                            <i class="fas fa-chart-line"></i> Streams Totais Atuais:
+                        </label>
+                        <div class="input-with-help">
+                            <input type="text" 
+                                   id="currentStreams" 
+                                   placeholder="Ex: 598.745.231 ou 598M"
+                                   autocomplete="off">
+                            <div class="help-tooltip">
+                                <i class="fas fa-info-circle"></i>
+                                <div class="tooltip-text">
+                                    Use pontos para milhares ou abreviações: K (mil), M (milhão), B (bilhão)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-examples">
+                            <small>Exemplos: 1.500.000 ou 1.5M</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="targetGoal">
+                            <i class="fas fa-bullseye"></i> Meta Desejada:
+                        </label>
+                        <div class="input-with-help">
+                            <input type="text" 
+                                   id="targetGoal" 
+                                   placeholder="Ex: 1.000.000.000 ou 1B"
+                                   autocomplete="off">
+                            <div class="help-tooltip">
+                                <i class="fas fa-info-circle"></i>
+                                <div class="tooltip-text">
+                                    A meta que você deseja alcançar
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-examples">
+                            <small>Exemplos: 500.000.000 ou 500M</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dailyAverage">
+                            <i class="fas fa-calendar-day"></i> Média Diária:
+                        </label>
+                        <div class="input-with-help">
+                            <input type="text" 
+                                   id="dailyAverage" 
+                                   placeholder="Ex: 50.000 ou 50K"
+                                   autocomplete="off">
+                            <div class="help-tooltip">
+                                <i class="fas fa-info-circle"></i>
+                                <div class="tooltip-text">
+                                    Média de streams por dia
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-examples">
+                            <small>Exemplos: 100.000 ou 100K</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="calculatorMode">
+                            <i class="fas fa-cogs"></i> Modo de Cálculo:
+                        </label>
+                        <select id="calculatorMode">
+                            <option value="days">Calcular Dias Restantes</option>
+                            <option value="daily">Calcular Média Diária Necessária</option>
+                            <option value="date">Calcular Data Estimada</option>
+                            <option value="goal">Calcular Meta Possível</option>
+                        </select>
+                    </div>
+                    
+                    <div class="calculator-actions">
+                        <button class="btn-primary" id="calculateBtn">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </button>
+                        <button class="btn-secondary" id="clearBtn">
+                            <i class="fas fa-broom"></i> Limpar
+                        </button>
+                        <button class="btn-secondary" id="exampleBtn">
+                            <i class="fas fa-lightbulb"></i> Exemplo
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="calculator-result" id="calculatorResult">
+                    <div class="result-placeholder">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Resultado da Calculadora</h3>
+                        <p>Preencha os campos e clique em Calcular</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exemplos Práticos -->
+        <section class="card">
+            <h2><i class="fas fa-lightbulb"></i> Exemplos Práticos</h2>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-music" style="color: #8A2BE2;"></i>
+                        <h4>We Don't Talk Anymore</h4>
+                    </div>
+                    <div class="example-content">
+                        <p><strong>Atual:</strong> 2,43B streams</p>
+                        <p><strong>Meta:</strong> 2,5B streams</p>
+                        <p><strong>Diário:</strong> 1,17M streams</p>
+                        <button class="btn-small load-example" data-current="2.43B" data-goal="2.5B" data-daily="1.17M">
+                            Usar este exemplo
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-music" style="color: #FF6B8B;"></i>
+                        <h4>Calm Down</h4>
+                    </div>
+                    <div class="example-content">
+                        <p><strong>Atual:</strong> 1,8B streams</p>
+                        <p><strong>Meta:</strong> 2B streams</p>
+                        <p><strong>Diário:</strong> 588K streams</p>
+                        <button class="btn-small load-example" data-current="1.8B" data-goal="2B" data-daily="588K">
+                            Usar este exemplo
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-music" style="color: #4CAF50;"></i>
+                        <h4>Lose You To Love Me</h4>
+                    </div>
+                    <div class="example-content">
+                        <p><strong>Atual:</strong> 1,43B streams</p>
+                        <p><strong>Meta:</strong> 1,5B streams</p>
+                        <p><strong>Diário:</strong> 289K streams</p>
+                        <button class="btn-small load-example" data-current="1.43B" data-goal="1.5B" data-daily="289K">
+                            Usar este exemplo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculadoras Avançadas -->
+        <section class="card">
+            <h2><i class="fas fa-chart-line"></i> Calculadoras Avançadas</h2>
+            
+            <div class="advanced-calculators">
+                <!-- Calculadora de Crescimento -->
+                <div class="advanced-calculator">
+                    <h3><i class="fas fa-percentage"></i> Calculadora de Crescimento</h3>
+                    <div class="calc-form">
+                        <div class="form-group">
+                            <label>Streams Iniciais:</label>
+                            <input type="text" id="growthInitial" placeholder="Ex: 1.000.000">
+                        </div>
+                        <div class="form-group">
+                            <label>Streams Finais:</label>
+                            <input type="text" id="growthFinal" placeholder="Ex: 1.500.000">
+                        </div>
+                        <div class="form-group">
+                            <label>Período (dias):</label>
+                            <input type="number" id="growthPeriod" placeholder="Ex: 30" min="1">
+                        </div>
+                        <button class="btn-small" id="calculateGrowth">Calcular Crescimento</button>
+                        <div class="calc-result" id="growthResult"></div>
+                    </div>
+                </div>
+                
+                <!-- Calculadora de Projeção -->
+                <div class="advanced-calculator">
+                    <h3><i class="fas fa-project-diagram"></i> Calculadora de Projeção</h3>
+                    <div class="calc-form">
+                        <div class="form-group">
+                            <label>Streams Atuais:</label>
+                            <input type="text" id="projectionCurrent" placeholder="Ex: 500.000">
+                        </div>
+                        <div class="form-group">
+                            <label>Crescimento Mensal (%):</label>
+                            <input type="number" id="projectionGrowth" placeholder="Ex: 10" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Meses:</label>
+                            <input type="number" id="projectionMonths" placeholder="Ex: 12" min="1">
+                        </div>
+                        <button class="btn-small" id="calculateProjection">Calcular Projeção</button>
+                        <div class="calc-result" id="projectionResult"></div>
+                    </div>
+                </div>
+                
+                <!-- Calculadora de Comparação -->
+                <div class="advanced-calculator">
+                    <h3><i class="fas fa-balance-scale"></i> Comparação de Metas</h3>
+                    <div class="calc-form">
+                        <div class="form-group">
+                            <label>Música A (streams/dia):</label>
+                            <input type="text" id="compareA" placeholder="Ex: 100.000">
+                        </div>
+                        <div class="form-group">
+                            <label>Música B (streams/dia):</label>
+                            <input type="text" id="compareB" placeholder="Ex: 150.000">
+                        </div>
+                        <div class="form-group">
+                            <label>Meta Comum:</label>
+                            <input type="text" id="compareGoal" placeholder="Ex: 1.000.000">
+                        </div>
+                        <button class="btn-small" id="calculateCompare">Comparar</button>
+                        <div class="calc-result" id="compareResult"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Histórico de Cálculos -->
+        <section class="card">
+            <h2><i class="fas fa-history"></i> Histórico de Cálculos</h2>
+            <div class="history-controls">
+                <button class="btn-small" id="clearHistory">
+                    <i class="fas fa-trash"></i> Limpar Histórico
+                </button>
+                <button class="btn-small" id="exportHistory">
+                    <i class="fas fa-download"></i> Exportar
+                </button>
+            </div>
+            <div class="calculations-history" id="calculationsHistory">
+                <!-- Gerado dinamicamente -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Calculadora de Metas</h4>
+                <p>Calcule o tempo necessário para alcançar suas metas de streams</p>
+            </div>
+            <div class="footer-section">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="busca.html"><i class="fas fa-search"></i> Buscar Música</a></li>
+                    <li><a href="votacao.html"><i class="fas fa-vote-yea"></i> Votação</a></li>
+                    <li><a href="admin.html"><i class="fas fa-cog"></i> Admin</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Recursos</h4>
+                <div class="resource-links">
+                    <a href="#"><i class="fas fa-question-circle"></i> Ajuda</a>
+                    <a href="#"><i class="fas fa-book"></i> Tutorial</a>
+                    <a href="#"><i class="fas fa-video"></i> Vídeos</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Selena Gomez Stream Tracker - Calculadora de Metas</p>
+        </div>
+    </footer>
+
+    <!-- Modais -->
+    <div id="loginModal" class="modal">
+        <!-- Modal de login (mesmo da home) -->
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-sign-in-alt"></i> Login</h3>
+            <div class="login-form">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email:</label>
+                    <input type="email" id="loginEmailCalc" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Senha:</label>
+                    <input type="password" id="loginPasswordCalc" placeholder="Sua senha">
+                </div>
+                <button class="btn-primary" id="submitLoginCalc">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+                <p class="register-text">
+                    Não tem conta? <a href="#" id="registerLinkCalc">Registre-se</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <!-- Modal de registro (mesmo da home) -->
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-user-plus"></i> Registrar</h3>
+            <div class="register-form">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Nome:</label>
+                    <input type="text" id="registerNameCalc" placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email:</label>
+                    <input type="email" id="registerEmailCalc" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Senha:</label>
+                    <input type="password" id="registerPasswordCalc" placeholder="Mínimo 6 caracteres">
+                </div>
+                <button class="btn-primary" id="submitRegisterCalc">
+                    <i class="fas fa-user-plus"></i> Registrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/calculadora.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
