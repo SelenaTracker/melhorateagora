@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selena Gomez Stream Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Acompanhe as metas de streams da Selena Gomez e participe da comunidade de fãs">
+    <meta name="keywords" content="Selena Gomez, streams, Spotify, metas, música, fãs">
+</head>
+<body>
+    <!-- Sistema de Login/Logout -->
+    <div class="user-bar">
+        <div class="user-info" id="userInfo">
+            <span id="userName">Visitante</span>
+            <span id="userPoints">0 pontos</span>
+        </div>
+        <button id="loginBtn" class="btn-login"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+        <button id="logoutBtn" class="btn-logout" style="display: none;"><i class="fas fa-sign-out-alt"></i> Sair</button>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-music"></i>
+            <h1>Selena Gomez Stream Tracker</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="busca.html"><i class="fas fa-search"></i> Buscar Música</a></li>
+                <li><a href="calculadora.html"><i class="fas fa-calculator"></i> Calculadora</a></li>
+                <li><a href="votacao.html"><i class="fas fa-vote-yea"></i> Votação</a></li>
+                <li><a href="admin.html"><i class="fas fa-cog"></i> Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Bloco: Estatísticas Gerais -->
+        <section class="card">
+            <h2><i class="fas fa-chart-line"></i> Estatísticas Gerais</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>Total Diário</h3>
+                    <p class="big-number" id="totalDiario">0</p>
+                    <p class="stat-label">Streams hoje</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Geral</h3>
+                    <p class="big-number" id="totalGeral">0</p>
+                    <p class="stat-label">Streams totais</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Selena Gomez</h3>
+                    <p class="big-number" id="totalSelena">0</p>
+                    <p class="stat-label">Streams</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Selena & The Scene</h3>
+                    <p class="big-number" id="totalScene">0</p>
+                    <p class="stat-label">Streams</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco: Sistema de Metas Inteligente -->
+        <section class="card">
+            <h2><i class="fas fa-bullseye"></i> Sistema de Metas Inteligente</h2>
+            <div class="goal-rules-grid">
+                <div class="rule-card">
+                    <div class="rule-header" style="background: linear-gradient(135deg, #8A2BE2, #5D1CA9)">
+                        <i class="fas fa-rocket"></i>
+                        <h4>Nível Máximo</h4>
+                    </div>
+                    <div class="rule-body">
+                        <p><strong>Acima de 400k/dia</strong></p>
+                        <p class="rule-increment">+5M por meta</p>
+                        <p class="rule-example">Ex: 146M → 151M</p>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-header" style="background: linear-gradient(135deg, #FF6B8B, #FF4D6D)">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Nível Alto</h4>
+                    </div>
+                    <div class="rule-body">
+                        <p><strong>200k-399k/dia</strong></p>
+                        <p class="rule-increment">+3M por meta</p>
+                        <p class="rule-example">Ex: 42.3M → 45.3M</p>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-header" style="background: linear-gradient(135deg, #4CAF50, #2E7D32)">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h4>Nível Médio</h4>
+                    </div>
+                    <div class="rule-body">
+                        <p><strong>100k-199k/dia</strong></p>
+                        <p class="rule-increment">+2M por meta</p>
+                        <p class="rule-example">Ex: 501M → 503M</p>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-header" style="background: linear-gradient(135deg, #FF9800, #F57C00)">
+                        <i class="fas fa-walking"></i>
+                        <h4>Nível Básico</h4>
+                    </div>
+                    <div class="rule-body">
+                        <p><strong>30k-95k/dia</strong></p>
+                        <p class="rule-increment">+1M por meta</p>
+                        <p class="rule-example">Ex: 10M → 11M</p>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-header" style="background: linear-gradient(135deg, #2196F3, #1976D2)">
+                        <i class="fas fa-seedling"></i>
+                        <h4>Nível Inicial</h4>
+                    </div>
+                    <div class="rule-body">
+                        <p><strong>11k-25k/dia</strong></p>
+                        <p class="rule-increment">+200k por meta</p>
+                        <p class="rule-example">Ex: 264.5M → 264.7M</p>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-header" style="background: linear-gradient(135deg, #9C27B0, #7B1FA2)">
+                        <i class="fas fa-leaf"></i>
+                        <h4>Nível Básico</h4>
+                    </div>
+                    <div class="rule-body">
+                        <p><strong>Abaixo de 11k/dia</strong></p>
+                        <p class="rule-increment">+100k por meta</p>
+                        <p class="rule-example">Ex: 1.2M → 1.3M</p>
+                    </div>
+                </div>
+            </div>
+            <div class="goal-status">
+                <button class="btn-secondary" id="checkGoalsNow">
+                    <i class="fas fa-sync-alt"></i> Verificar Metas Agora
+                </button>
+                <button class="btn-secondary" id="viewGoalHistory">
+                    <i class="fas fa-history"></i> Ver Histórico
+                </button>
+            </div>
+        </section>
+
+        <!-- Bloco: Top Álbuns -->
+        <section class="card">
+            <h2><i class="fas fa-compact-disc"></i> Top Álbuns</h2>
+            <div class="album-grid" id="albumGrid">
+                <!-- Gerado dinamicamente -->
+            </div>
+        </section>
+
+        <!-- Bloco: Foco do Dia -->
+        <section class="card focus-card">
+            <h2><i class="fas fa-bullseye"></i> Música Foco do Dia</h2>
+            <div class="focus-content">
+                <div class="focus-info">
+                    <h3 id="focusMusic">Carregando...</h3>
+                    <p id="focusDescription">Meta coletiva em andamento</p>
+                    <div class="focus-stats">
+                        <div>
+                            <span>Streams totais:</span>
+                            <strong id="focusTotal">0</strong>
+                        </div>
+                        <div>
+                            <span>Meta:</span>
+                            <strong id="focusMeta">0</strong>
+                        </div>
+                        <div>
+                            <span>Faltam:</span>
+                            <strong id="focusRemaining">0</strong>
+                        </div>
+                        <div>
+                            <span>Progresso:</span>
+                            <div class="progress-bar">
+                                <div class="progress" id="focusProgress"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="simulateBtn"><i class="fas fa-calculator"></i> Simular Meta</button>
+                </div>
+                <div class="focus-actions">
+                    <a href="https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO" target="_blank" class="playlist-card">
+                        <i class="fas fa-headphones"></i>
+                        <h4>Ouvir Playlist Oficial</h4>
+                        <p>Clique para ouvir no Spotify</p>
+                    </a>
+                    <div class="focus-timer">
+                        <h4><i class="fas fa-clock"></i> Próxima Votação</h4>
+                        <div class="timer" id="nextVotingTimer">
+                            <span class="timer-digit" id="timerHours">00</span>:
+                            <span class="timer-digit" id="timerMinutes">00</span>:
+                            <span class="timer-digit" id="timerSeconds">00</span>
+                        </div>
+                        <p>Vote na próxima música foco</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco: Novas Metas -->
+        <section class="card">
+            <h2><i class="fas fa-trophy"></i> Metas Batidas Recentemente</h2>
+            <div class="achieved-grid" id="achievedGrid">
+                <!-- Gerado dinamicamente -->
+            </div>
+        </section>
+
+        <!-- Bloco: Músicas em Destaque -->
+        <section class="card">
+            <h2><i class="fas fa-fire"></i> Músicas em Destaque</h2>
+            <div class="highlighted-songs" id="highlightedSongs">
+                <!-- Gerado dinamicamente -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Selena Gomez Stream Tracker</h4>
+                <p>Acompanhe as metas de streams da Selena Gomez</p>
+                <div class="footer-stats">
+                    <p><i class="fas fa-users"></i> <span id="totalUsers">0</span> usuários ativos</p>
+                    <p><i class="fas fa-music"></i> <span id="totalSongs">0</span> músicas</p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="termos.html"><i class="fas fa-file-contract"></i> Termos de Uso</a></li>
+                    <li><a href="privacidade.html"><i class="fas fa-shield-alt"></i> Privacidade</a></li>
+                    <li><a href="contato.html"><i class="fas fa-envelope"></i> Contato</a></li>
+                    <li><a href="votacao.html"><i class="fas fa-vote-yea"></i> Votação</a></li>
+                    <li><a href="calculadora.html"><i class="fas fa-calculator"></i> Calculadora</a></li>
+                    <li><a href="admin.html"><i class="fas fa-cog"></i> Painel Admin</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Conectar</h4>
+                <div class="social-links">
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Spotify"><i class="fab fa-spotify"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+                </div>
+                <div class="newsletter">
+                    <h5>Newsletter</h5>
+                    <input type="email" placeholder="Seu e-mail" id="newsletterEmail">
+                    <button class="btn-small" id="subscribeBtn">Inscrever</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Selena Gomez Stream Tracker. Todos os direitos reservados.</p>
+            <p class="footer-credits">Desenvolvido com <i class="fas fa-heart"></i> pela comunidade de fãs</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Simulação -->
+    <div id="simulationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-calculator"></i> Simulação de Meta</h3>
+            <div class="simulation-form">
+                <div class="form-group">
+                    <label>Música:</label>
+                    <input type="text" id="simulationSong" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Streams atuais:</label>
+                    <input type="text" id="simulationCurrent" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Meta atual:</label>
+                    <input type="text" id="simulationGoal" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Média diária esperada:</label>
+                    <input type="number" id="dailyAverage" placeholder="Ex: 50000" min="1">
+                </div>
+                <button class="btn-primary" id="calculateSimulation"><i class="fas fa-calculator"></i> Calcular</button>
+                <div class="simulation-result" id="simulationResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-sign-in-alt"></i> Login</h3>
+            <div class="login-form">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email:</label>
+                    <input type="email" id="loginEmail" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Senha:</label>
+                    <input type="password" id="loginPassword" placeholder="Sua senha">
+                </div>
+                <button class="btn-primary" id="submitLogin"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+                <p class="register-text">Não tem conta? <a href="#" id="registerLink">Registre-se</a></p>
+                <div class="login-benefits">
+                    <h4><i class="fas fa-gift"></i> Benefícios:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Ganhe pontos por atividades</li>
+                        <li><i class="fas fa-check"></i> Participe de votações exclusivas</li>
+                        <li><i class="fas fa-check"></i> Acesso a estatísticas detalhadas</li>
+                        <li><i class="fas fa-check"></i> Receba notificações de metas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-user-plus"></i> Registrar</h3>
+            <div class="register-form">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Nome:</label>
+                    <input type="text" id="registerName" placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email:</label>
+                    <input type="email" id="registerEmail" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Senha:</label>
+                    <input type="password" id="registerPassword" placeholder="Mínimo 6 caracteres">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Confirmar Senha:</label>
+                    <input type="password" id="registerConfirmPassword" placeholder="Digite novamente">
+                </div>
+                <button class="btn-primary" id="submitRegister"><i class="fas fa-user-plus"></i> Registrar</button>
+                <p class="login-text">Já tem conta? <a href="#" id="loginLink">Faça login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área para AdSense -->
+    <div class="adsense-banner">
+        <div class="ad-placeholder">
+            <i class="fas fa-ad"></i>
+            <p>Espaço para anúncios</p>
+            <small>O anúncio ajuda a manter o site</small>
+        </div>
+    </div>
+
+    <!-- Notificação de Pontos -->
+    <div class="points-notification" id="pointsNotification">
+        <div class="points-content">
+            <i class="fas fa-star"></i>
+            <div>
+                <h4>Pontos Ganhos!</h4>
+                <p id="pointsMessage">Você ganhou pontos!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
